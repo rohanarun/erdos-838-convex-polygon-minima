@@ -1,0 +1,40 @@
+A strict gap for point sets with an exterior twin pair in the Erdős–Hammer problem
+
+All logarithms are base two. For a planar set P in general position, v(P) counts nonempty subsets in convex position and f(n)=min_{|P|=n} v(P). Let f_tw(n) be the same minimum restricted to configurations with a twin pair in the sense of Savova: a,b are consecutive hull vertices and no line through two other points separates them. The difference f_tw(n)-f(n) is identical if only polygons with at least three vertices are counted.
+
+For every n>=4 one has
+  f_tw(n)-f(n) >= floor((n-2)^2/4).
+Moreover,
+  log(f_tw(n)-f(n)) = log f(n) + O(log n).
+In particular, the normalized gap has the same liminf and limsup as the unrestricted polygon minimum. These statements do not presume existence of the Erdős–Hammer limit.
+
+1. Replacing one of two twins. Write Q=P minus b, and let Phi_a(Q) count the convex supports of Q containing a. A set through b and avoiding a is convex exactly when its counterpart through a in Q is convex, since all orientations of triples correspond. Every convex set S through a in Q remains convex when b is also selected. For |S|>=3, every old point p other than a has an incident supporting edge through another old point other than a unless p's only two neighbors included only a, which is impossible for a polygon. For that supporting edge, b lies on the same side as a (or, when |S|=3, use the edge joining the two other vertices). So p remains extreme. The edge ab supports all other points strictly, hence gives two further extreme vertices. Sizes one and two are immediate. Conversely, deleting b from a convex set preserves convexity. This is the rankwise version of Savova's twin identity v(P)=v(Q)+2 Phi_a(Q).
+
+There is a strict supporting line through a with Q minus a in an open half-plane. List those n-2 points in their angular order about a in that half-plane. Pick an interior gap, and a ray a+tv in the gap with v generic. Replace b by b'=a+epsilon v, choosing epsilon sufficiently small that all transversal triple signs agree with Q and b' lies strictly inside triangle acd for every pair c,d on opposite sides of the gap. This latter condition holds because v is strictly inside the positive cone of c-a,d-a, so a short positive multiple has positive barycentric coefficients whose sum is <1. There are only finitely many conditions.
+
+The counts of subsets using at most one of a,b' are the same as before. Those using both map injectively into previously convex sets by replacing b' with b: deleting b' gives a convex support through a, and an exterior twin may always be added to such a support. If the support uses both angular sides, then a,b',c,d contain an interior point b', so this support's doubled set disappears. For a median gap the number of mixed pairs c,d is floor((n-2)^2/4). This proves the finite bound. The same change never increases the number of convex k-sets for any k and strictly reduces it for k=4. The bound is attained at n=4, and under Savova's reported exact counts also at n=6 and n=8.
+
+2. Averaging the cut. Every convex support containing a and at least two additional points straddles one or more of the n-3 interior gaps. By summing over the gaps, some choice destroys at least (Phi_a(Q)-(n-1))/(n-3) doubled convex sets. The subtracted n-1 supports are the singleton and the n-2 pairs through a.
+
+3. Comparing points of high incidence. For i in P let d_i count the convex supports containing i. Put A=Phi_a(Q), V=v(P), Delta=V-f(n), and m=max_i d_i. The decomposition in Step 1 gives d_a=d_b=2A. Choose j with d_j=m. Delete j from P and pick a surviving twin i (either a or b). Place a very close generic copy i' of i, preserving every transversal triple orientation and giving a general-position set. Together the operations retain n points. The deletion removed m supports. The new copy adds at most 2 d_i supports: sets using i' and avoiding i correspond to old supports containing i by transversal orientation, while sets using both project injectively into that same family on deleting i'. These families after removal of j lie in the original families counted by d_i. Consequently Delta >= m-4A. This proof works when j is itself a twin by picking the other twin for i.
+
+The cut estimate from Step 2 gives A <= (n-3) Delta + n-1. Combining the inequalities yields
+  (4n-11) Delta >= m-4(n-1) >= V/n-4(n-1),
+as every convex support is incident with at least one point. This bound holds for each twin configuration. In particular for the minimizing such configuration V=f_tw(n)>=f(n). For all sufficiently large n, V>=binom(n,3)>=8n(n-1); hence Delta>=V/(8n^2)>=f(n)/(8n^2).
+
+Conversely, in any minimizing (n-1)-point configuration choose a hull vertex a and displace its new copy a sufficiently small distance in a generic direction on a strictly supporting line through a. The twin identity gives f_tw(n)<=3f(n-1)<=3f(n). In particular Delta=f_tw(n)-f(n)<=2f(n). The two-sided comparison proves the logarithmic assertion. Replacing f by polygon-only counts subtracts precisely n+binom(n,2) from both unrestricted and twin minima, leaving their difference unchanged and changing log f by o(1).
+
+4. Relative size of the gap. More precisely, writing b=log n, there are absolute positive constants c,C such that for all sufficiently large n,
+  c b^3/n^2 <= (f_tw(n)-f(n))/f(n) <= C b^2/n.
+In particular f_tw(n)/f(n) tends to one, although the difference grows faster than every polynomial.
+
+For the upper bound let S minimize the nonempty convex-subset count at size r=n-1, and let D_i be the incidence counts there. For any two distinct vertices j,i, deleting j and adding a near copy of i costs at most 2D_i after removing D_j, by the same transversal argument as in Step 3. Optimality gives D_j <= 2D_i. In particular the largest D_j is at most twice their average. Every convex support has size at most log(f(r)+1), since all its nonempty subsets count. The average D_i is at most f(r)log(f(r)+1)/r. Splitting any hull vertex outwards now gives f_tw(n) <= f(r)(1+4log(f(r)+1)/r). Use f(r)<=f(n) and the known bound log f(n)=O(b^2).
+
+For the lower bound choose a minimizing twin configuration P on n points and keep the notation V,A,m,Delta of Step 3. The inequalities f(n)<=V<=3f(n) and the known Erdos-Hammer bounds give log V of order b^2. If mu is the mean size of a uniformly random nonempty convex subset of P, entropy subadditivity for its membership indicators gives log V <= n h_2(mu/n) <= mu log(en/mu) <= mu log(en). Here e is the base of natural logarithms and mu>=1. It follows that m >= V mu/n >= c_1 V b/n for an absolute c_1>0. If Delta>=m/2 this already suffices. Otherwise Delta>=m-4A implies A>m/8.
+
+For a support through a in Q, define its width as the number of gaps between the first and last of its other points in the radial ordering of Step 1, or zero if there are fewer than two such points. For integer w>=1, at most 1+(n-2)2^w supports have width below w: specify the first other point and the subset of the following w-1 positions, or use just a. Take w=floor(log(A/(4n))). Since A>c_1 V b/(8n), this w is of order b^2 for large n, and at most A/2 of the supports have width below w. Summing widths over the n-3 possible cuts therefore gives a direction destroying at least Aw/(2(n-3)) doubled sets. Substitution of the bounds on A and w yields Delta >= c_2 V b^3/n^2 >= c_2 f(n)b^3/n^2. This completes both inequalities. Subtracting singles and pairs changes neither the gap nor these asymptotic relative bounds.
+
+Savova's paper, Section 8, gives the exterior-twin identity and computes the restricted minima at n=6,...,11. Source:
+https://github.com/NikolSavova/erdos-838-convex-subsets/blob/main/paper/main.tex
+The original general limit question is still unresolved by this argument:
+https://users.renyi.hu/~p_erdos/1978-44.pdf

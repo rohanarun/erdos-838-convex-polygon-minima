@@ -9,10 +9,11 @@
 \begin{center}
 {\LARGE\bfseries Minimum numbers of convex polygons\\[3pt] on twelve through fourteen points}\\[12pt]
 {\large Rohan Arun}\\[2pt] Super Powers AI\\[4pt]
-{\small Version 1.1, November 20, 2026}
+{\small Version 1.2, November 20, 2026}
 \end{center}
 \begin{abstract}
 Among twelve, thirteen and fourteen planar points with no three collinear, the minimum numbers of convex polygons are 408, 570 and 780, respectively. Up to reflection and relabeling there are five minimizing order types on thirteen points and one on fourteen. Deleting any point from the fourteen-point minimizer leaves at least 574 polygons. We obtain the lower bounds by enumerating orientation signs along a chain of point deletions and certifying the nonrealizability of the remaining exceptions by inequalities between triangle areas. Integer coordinates certify attainment. The same search independently recovers Savova's ten- and eleven-point values.
+We also prove that exterior twin pairs cannot occur in a minimizer at any size $n\ge4$.
 \end{abstract}
 \section{The finite problem}
 For a finite planar point set $S$ with no three collinear, let $C(S)$ count the subsets of at least three points in convex position. All vertices of a counted subset must lie on its hull. Other points of $S$ may lie inside that hull. Write $f(n)=\min_{|S|=n}C(S)$. Erd\H{o}s and Hammer asked how small this number could be. Erd\H{o}s also asked whether $\log f(n)/(\log n)^2$ has a limit~\cite{erdos}. The latter question remains open.
@@ -121,6 +122,28 @@ All 364 triple determinants are nonzero. Exact convex-hull tests across the $2^{
 The least is 574. Consequently none of the five minimizing thirteen-point order types extends to a minimizing fourteen-point order type.
 
 \paragraph{Verification.} The fourteen-point reproduction archive includes the integer witness, the full list of candidates at or below 780, the exclusion certificates, and the enumeration code. The scalar and bit-mask implementations share the deletion argument, sign-row extension and canonicalization. They count and prune candidates by different methods and produced byte-identical output at $Q+P\le417$. Lean~4 checks the fourteen-point witness count and each of the sixteen determinant contradictions over the reals. Completeness of the search uses Section~2 and the external C++ enumeration. Run instructions for both checks are in the archive's \texttt{README.txt}.
+
+\newpage
+\section{An obstruction to minimizing at every size}
+Following Savova~\cite[Section~8]{savova}, call consecutive hull vertices $a,b$ an \emph{exterior twin pair} if no line through two other points separates them. Savova's Corollary~8.13 excludes exterior twins from minimizers computationally at sizes six through eleven.
+
+\medskip
+\noindent\textbf{Theorem.} For every $n\ge4$, any $n$-point configuration with an exterior twin pair has at least $f(n)+\lfloor(n-2)^2/4\rfloor$ convex polygons. At $n=14$ this gives a lower bound of $816$ for such configurations.
+
+\paragraph{Proof.} Let $Q$ be the configuration after deleting $b$. Replacing $a$ by $b$ in a subset of $Q$ preserves convexity because the triple orientations agree. Also, every convex subset $S$ of $Q$ containing $a$ remains convex on adding $b$. For $|S|\ge3$, each vertex of $S$ other than $a$ is incident with a supporting edge whose endpoints differ from $a$. The point $b$ stays on the same side of that edge as $a$. The edge $ab$ supports the entire configuration, so $a,b$ are both extreme as well. Singletons and pairs give the same conclusion by general position.
+
+Choose a strictly supporting line through $a$, so the $n-2$ other points of $Q$ lie in an open half-plane. Order their rays from $a$ inside this half-plane. Place $b'$ sufficiently close to $a$ along a ray in a median gap of this order. The displacement can be chosen to preserve every triple orientation when $b'$ replaces $a$, and to place $b'$ strictly inside each triangle $acd$ for which the rays to $c,d$ straddle the gap. For the latter, the chosen ray lies strictly in the cone spanned by the two rays, so a sufficiently short displacement has positive barycentric coefficients with sum less than one. There are finitely many strict conditions.
+
+Subsets using at most one of $a,b'$ retain their convexity status under the label correspondence $b'\leftrightarrow b$. If a convex subset uses both, removing $b'$ gives a convex subset of $Q$ containing $a$. By the preceding argument, adding back $b$ gives an original convex subset. Thus the count of polygons of each size can only decrease. For each pair $c,d$ straddling the gap, $a,b,c,d$ was convex and $a,b',c,d$ has $b'$ in its interior. If both rays lie on the same side of the gap, $ab'$ and $cd$ are both supporting edges of the four-point set, so it stays convex. The median gap has $\lfloor(n-2)^2/4\rfloor$ straddling pairs. \hfill$\square$
+
+\paragraph{Relative size of the gap.}
+Let $F(n)=f(n)+n+\binom n2$ count all nonempty convex subsets at the minimum, and let $F_{\rm tw}(n)$ be the corresponding minimum with an exterior twin pair. The companion proof uses cloning, incidence counts and angular averaging to give, for absolute constants $c,C>0$ and all sufficiently large $n$,
+\[
+ c\,\frac{(\log n)^3}{n^2}
+ \le \frac{F_{\rm tw}(n)-F(n)}{F(n)}
+ \le C\,\frac{(\log n)^2}{n}.
+\]
+Thus $F_{\rm tw}(n)/F(n)\to1$. The Erd\H{o}s--Hammer convergence question remains open. The companion proof and 63 exact-arithmetic checks of the inward move are in the paper's \href{https://github.com/rohanarun/erdos-838-convex-polygon-minima/tree/v1.2.0/reproduction/twin-gap}{reproduction directory}.
 
 \newpage
 \section*{A nine-comparison certificate}
