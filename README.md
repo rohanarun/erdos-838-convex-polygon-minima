@@ -13,6 +13,10 @@ Among twelve planar points with no three collinear, the minimum number of convex
 
 Nikol Savova obtained the ten-point minimum from the Graz order-type database and the eleven-point minimum by an extension argument. Her counting convention includes singletons and pairs, giving 244 and 349. The twelve- and thirteen-point values under that convention are 486 and 661. The asymptotic limit asked for in Erdős problem #838 remains open. [Savova’s paper and code](https://github.com/NikolSavova/erdos-838-convex-subsets) · [Erdős problem #838](https://www.erdosproblems.com/838)
 
+## Citation
+
+The reserved Zenodo version DOI for the forthcoming v1.0.0 release is **10.5281/zenodo.24388070**. The archival publication will accompany the GitHub release. [Version DOI](https://doi.org/10.5281/zenodo.24388070) · [Citation metadata](CITATION.cff)
+
 ## Reproduce the results
 
 Run the following commands with Python 3.8 or later and a GCC or Clang C++17 compiler.

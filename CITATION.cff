@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "Please cite the paper and its reproducibility archive using this version DOI."
+type: software
+title: "Minimum numbers of convex polygons on twelve and thirteen points"
+authors:
+  - family-names: Arun
+    given-names: Rohan
+    affiliation: Super Powers AI
+version: 1.0.0
+doi: 10.5281/zenodo.24388070
+repository-code: https://github.com/rohanarun/erdos-838-convex-polygon-minima
+license: MIT
+preferred-citation:
+  type: report
+  title: "Minimum numbers of convex polygons on twelve and thirteen points"
+  authors:
+    - family-names: Arun
+      given-names: Rohan
+      affiliation: Super Powers AI
+  year: 2026
+  doi: 10.5281/zenodo.24388070
+  url: https://doi.org/10.5281/zenodo.24388070
