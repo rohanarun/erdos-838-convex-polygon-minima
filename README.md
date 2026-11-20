@@ -22,7 +22,7 @@ An exterior twin pair consists of consecutive hull vertices that no line through
 
 ## Video explainer
 
-The version 1.0.0 narrated animation shows how the point sets determine convex polygons and illustrates the twelve- and thirteen-point minima. [Watch or download the MP4](https://github.com/rohanarun/erdos-838-convex-polygon-minima/releases/download/v1.0.0/erdos-838-explained.mp4) · [Animation source and rendering instructions](explainer/README.md) · [Release downloads](https://github.com/rohanarun/erdos-838-convex-polygon-minima/releases/tag/v1.0.0)
+The narrated animation shows how the point sets determine convex polygons and illustrates the twelve-, thirteen-, and fourteen-point minima. [Watch or download the MP4](https://github.com/rohanarun/erdos-838-convex-polygon-minima/releases/download/v1.2.0/erdos-838-explained.mp4) · [Animation source and rendering instructions](explainer/README.md) · [Release downloads](https://github.com/rohanarun/erdos-838-convex-polygon-minima/releases/tag/v1.2.0)
 
 ## Citation
 

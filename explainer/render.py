@@ -50,12 +50,17 @@ def catalogue(pts):
 
 p12=[tuple(map(int,line.split())) for line in Path("witness12.txt").read_text().splitlines()]
 p13=[[tuple(p) for p in json.loads(line)[1]] for line in Path("real13.jsonl").read_text().splitlines()]
+p14=[tuple(map(int,line.split())) for line in Path("witness14.txt").read_text().splitlines()]
 w12=catalogue(p12)
+w14=catalogue(p14)
 cats=[catalogue(P) for P in p13]
 assert [len(w12[i]) for i in range(3,7)]==[220,165,22,1]
 assert sum(map(len,w12.values()))==408
 assert len(p13)==5 and all(sum(map(len,c.values()))==570 for c in cats)
 assert sorted([len(c[i]) for i in range(3,7)] for c in cats)==[[286,241,41,2]]+[[286,247,35,2]]*4
+assert len(p14)==14 and [len(w14[k]) for k in range(3,7)]==[364,350,64,2]
+total14=sum(map(len,w14.values()))
+assert total14==780
 tri=hull(p13[0])
 assert len(tri)==3
 interior=max((p for p in p13[0] if p not in tri),key=lambda p:min(abs(cross(a,b,p)) for a,b in zip(tri,tri[1:]+tri[:1])))
@@ -108,11 +113,11 @@ def frame(t):
     if scene in (0,1):
         text(d,65,139,"How few" if scene==0 else "The corner",66,"serif")
         text(d,65,220,"polygons?" if scene==0 else "test",66,"serif")
-        sub=("13 points in the plane" if scene==0 else ("Four selected · three corners" if j==3 else "Three selected · three corners"))
+        sub=("14 points in the plane" if scene==0 else ("Four selected · three corners" if j==3 else "Three selected · three corners"))
         text(d,68,355,sub,25,"bold",orange)
         text(d,68,404,"No three points on a line.",24,"regular",muted)
-        S=tri if scene==1 else max(cats[0][5],key=area)
-        draw_shape(d,p13[0],S,(615,110,1170,541),f,8,scene==0,interior if j==3 else None)
+        S=tri if scene==1 else max(w14[5],key=area)
+        draw_shape(d,p13[0] if scene==1 else p14,S,(615,110,1170,541),f,8,scene==0,interior if j==3 else None)
     elif scene==2:
         text(d,65,97,"The earlier minima",55,"serif")
         for i,(n,total) in enumerate([(10,189),(11,283)]):
@@ -144,6 +149,20 @@ def frame(t):
             text(d,x+102,482,f"Type {i+1}",21,"bold",teal,"ma")
         text(d,67,541,"Rotation, reflection and relabeling preserve the count.",22,"regular",muted)
     elif scene==5:
+        text(d,65,94,"Fourteen points",51,"serif")
+        label(d,69,174,"MINIMUM NUMBER OF POLYGONS")
+        text(d,63,192,total14,90,"serif")
+        text(d,69,305,"One minimizing order type",23,"bold",orange)
+        names=("Triangles","Quadrilaterals","Pentagons","Hexagons")
+        idx=min(3,int(4*tau/(b-a))) if cues[j-1][0]==scene else 3
+        for i,name in enumerate(names):
+            y=365+43*i
+            if i==idx:d.rounded_rectangle((67,y-3,475,y+33),radius=4,fill=pale)
+            text(d,79,y,name,24)
+            text(d,460,y,len(w14[i+3]),24,"bold",teal,"ra")
+        sh=max(w14[idx+3],key=area)
+        draw_shape(d,p14,sh,(585,115,1179,539),1)
+    elif scene==6:
         text(d,65,91,"How the proof works",52,"serif")
         text(d,69,239,"Enumerate possible turns",32,"bold")
         text(d,69,298,"Exclude impossible patterns",32,"bold")
@@ -156,12 +175,12 @@ def frame(t):
             text(d,x+(12 if x<950 else -22),y+(7 if y<420 else -35),name,22,"bold",orange)
     else:
         text(d,65,102,"Exact today. Open at scale.",52,"serif")
-        for i,(n,v) in enumerate([(10,189),(11,283),(12,408),(13,570)]):
-            x=72+i*285
+        for i,(n,v) in enumerate([(10,189),(11,283),(12,408),(13,570),(14,total14)]):
+            x=72+i*232
             label(d,x,244,f"{n} POINTS")
             text(d,x,287,str(v),78,"serif",teal if i<2 else ink)
         text(d,70,469,"Does log f(n) / (log n)² approach a constant?",32,"regular",orange)
-        text(d,71,535,"Paper and reproduction files   ·   doi.org/10.5281/zenodo.24388070",21,"regular",muted)
+        text(d,71,535,"Paper and reproduction files   ·   doi.org/10.5281/zenodo.24397151",21,"regular",muted)
     cap(d,s)
     return im
 
