@@ -1,0 +1,9 @@
+[
+["How few polygons can thirteen points make?","Imagine stretching a rubber band around a selection of points."],
+["Count it if every selected point touches the band at a corner.","Each triangle counts, but a point tucked inside disqualifies that selection."],
+["For ten and eleven points, Nikol Savova found the minima: 189 and 283."],
+["With twelve points, the minimum rises to 408.","This arrangement reaches it with 220 triangles, 165 quadrilaterals, 22 pentagons and one hexagon."],
+["With thirteen points, the minimum is 570.","Exactly five arrangements attain it, up to order type: what matters is which way each triple turns."],
+["The proof tests possible turn patterns and rules out impossible ones using triangle areas."],
+["These are exact answers for small sets. How the minimum grows in general remains open."]
+]
