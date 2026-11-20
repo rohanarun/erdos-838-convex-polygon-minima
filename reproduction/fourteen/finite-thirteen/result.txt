@@ -1,0 +1,91 @@
+The minimum number of convex polygons on thirteen planar points is 570
+
+Every set of thirteen planar points, no three collinear, determines at
+least 570 convex polygons. A polygon is specified by a subset of at least
+three points, all vertices of its convex hull. Unselected points can lie
+inside. Up to relabeling and mirror reflection exactly five order types
+achieve equality. Their polygon counts are:
+
+  types   triangles  quadrilaterals  pentagons  hexagons  size >=7  total
+    1        286          241            41         2        0       570
+    4        286          247            35         2        0       570
+
+Upper bound. witness/witness13.txt is an integer configuration of the
+first type. The standard-library witness/verify.py computes each subset's
+convex hull by signed turns. For all five types see
+certificates/grid-realizations.jsonl. The independent standard-library
+certificates/verify-realizations.py checks the full orientation signatures
+of these configurations, canonicalizes over hull vertices, and recounts
+their polygons by convex hull.
+
+Lower bound and completeness. Write Q and P for the numbers of convex
+quadrilaterals and pentagons. There are 286 triangles. Thus every
+configuration with at most 570 polygons satisfies Q+P<=284. The weighted
+deletion identity ensures that such a configuration can be grown through
+a nested sequence with the bounds reported in deletion/candidates-284.txt.
+In detail, if A Q+B P<=T for m points, some deletion satisfies
+  A(m-5) Q' + B(m-4) P' <= floor(T(m-4)(m-5)/m).
+This follows by averaging because each quadrilateral survives m-4
+deletions and each pentagon survives m-5; at m=5 simply use the
+quadrilateral count. Divide by the gcd and round down as needed.
+
+Starting with a triangle, extend all surviving orientation signatures by
+one point in every possible ray sector around each old point. For a fixed
+old point i, a new direction crosses one of the old lines ij each time
+one sign changes. Its sign pattern is therefore represented just to one
+side of an old ray or its antipode. Agreement of [ijx] and -[jix] is
+necessary. Reject sign rows which would give a four-point affine circuit
+all of one sign; a two-positive, two-negative circuit marks a convex
+quadrilateral. A larger set is convex precisely when all its four-subsets
+are convex by planar Carathéodory. Canonicalization uses actual relabelings
+and simultaneous reversal of all signs; it never merges inequivalent
+realizable configurations. This may retain patterns incompatible with the
+plane but covers every realizable extension. The C++17 implementation is
+deletion/certificate.cpp. Its smaller predecessors and ray-sector proof
+are in ../finite-eleven/deletion/proof.txt and ../finite-twelve/deletion/.
+
+At order thirteen 625 signatures pass Q+P<=284. Counting all polygons
+leaves one possible signature at 569 and ten at 570. There is none below
+569. The 569 signature would have 286 triangles, 245 convex quadrilaterals,
+37 convex pentagons, and one larger polygon. It is impossible in the
+real plane. Its nine-row certificate in certificates/compact.txt uses the
+three-term identity
+  [abc][ade] - [abd][ace] + [abe][acd] = 0,
+where [abc] is a signed doubled triangle area. When one summand has
+opposite sign to the other two, its magnitude strictly exceeds each of
+their magnitudes. The nine forced strict comparisons multiply to X>X with
+X positive and all area factors cancelling. A separate run at Q+P<=283,
+the exact necessary threshold for at most 569 polygons, leaves the very
+same single signature after the polygon-count filter.
+
+Of the ten 570 candidates, five have similar impossible area certificates
+and five have the verified integer realizations above. All six exclusions
+are in certificates/compact-proofs.jsonl with the exact input signs and
+positive multiplicities. The five canonical realized signatures are
+distinct. This proves the value and classifies all minimizers.
+
+Replay commands from finite-thirteen, using a build directory on the SSD:
+  TMPDIR="$PWD/deletion" clang++ -O3 -std=c++17 deletion/certificate.cpp -o deletion/verify
+  (set -o pipefail; deletion/verify 13 284 | cmp - deletion/candidates-284.txt)
+  (set -o pipefail; deletion/verify 13 283 | cmp - deletion/candidates-283.txt)
+  python3 -B witness/verify.py
+  python3 -B certificates/check.py --certificates certificates/compact-proofs.jsonl
+  python3 -B certificates/verify-realizations.py
+The two pipeline commands use bash or zsh. The certificate discovery solvers
+are optional; replay after compilation uses only the Python standard library.
+
+Scope. The July 2026 report https://www.erdosproblemaday.com/report/838
+ends at nine. Nikol Savova's September 2026 paper extends the known
+values to eleven: https://github.com/NikolSavova/erdos-838-convex-subsets .
+We found no prior report of the thirteen-point total or the five-type classification;
+the searches do not certify historical priority. Erdős's 1978 limiting
+question remains open. Exhaustiveness is supported by the deletion proof
+and its implementation; the enumeration itself runs outside Lean.
+
+Formal checks. witness/Witness13.lean checks the exact profile and general
+position of the displayed witness in Lean's kernel. formal/Exclude569.lean
+and formal/OtherExclusions.lean prove that no configuration of thirteen
+real planar points realizes any of the six excluded 286-bit signatures.
+The 569 theorem uses nine strict determinant-product inequalities; its
+hypothesis is the actual signature. formal/replay.sh reruns these proofs,
+and formal/replay.log records their axiom reports.

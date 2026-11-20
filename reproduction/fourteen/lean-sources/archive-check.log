@@ -1,0 +1,22 @@
+Checking FiniteWitnesses
+Checking ChunkWitnessBase
+Checking ChunkWitness14
+'FinitePolygonWitnesses.polygon_count_14' depends on axioms: [propext]
+Checking Exclusions14
+'FourteenPointExclusions.no_realization_778_0' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FourteenPointExclusions.no_realization_779_1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FourteenPointExclusions.no_realization_779_2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FourteenPointExclusions.no_realization_779_3' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking Equality14
+'FourteenPointExclusions.no_realization_780_00' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FourteenPointExclusions.no_realization_780_01' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FourteenPointExclusions.no_realization_780_02' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FourteenPointExclusions.no_realization_780_03' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FourteenPointExclusions.no_realization_780_04' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FourteenPointExclusions.no_realization_780_05' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FourteenPointExclusions.no_realization_780_06' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FourteenPointExclusions.no_realization_780_07' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FourteenPointExclusions.no_realization_780_08' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FourteenPointExclusions.no_realization_780_09' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FourteenPointExclusions.no_realization_780_10' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FourteenPointExclusions.no_realization_780_11' depends on axioms: [propext, Classical.choice, Quot.sound]

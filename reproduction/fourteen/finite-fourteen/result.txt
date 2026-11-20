@@ -1,0 +1,42 @@
+Fourteen points determine at least 780 convex polygons
+
+For 14 planar points in general position, the minimum number of subsets of at least three points in convex position is 780. The witness in witness780-small.txt has 364 triangles, 350 quadrilaterals, 64 pentagons and two hexagons. Its other counts vanish. Counting singletons and pairs also gives 885 nonempty convex subsets.
+
+The upper bound is certified by exact integer convex hulls on every subset. For the lower bound let Q and P count convex quadrilaterals and pentagons. A set with at most 779 polygons must have Q+P<=415 since it contains 364 triangles. We ran the stronger enumeration at Q+P<=417, which includes every candidate at or below 781. This produced 22,038 candidate signs. Recounting all larger polygons reduced this to one candidate at 778, three at 779, thirteen at 780 and 56 at 781. The four candidates below 780 have exact Grassmann–Plücker product certificates in exclusions-below780.jsonl. For a fixed root label a and four other labels b,c,d,e the three signed products [abc][ade], -[abd][ace], [abe][acd] sum to zero. The term with the exceptional sign is therefore strictly larger in absolute value than either other term. Every certificate lists positive integer multiplicities for such strict comparisons; in their product every triangle area occurs equally often on each side, yielding a contradiction. Python verifies every signature, comparison sign and exponent. No coordinate optimization, linear-programming solver, or floating-point operation is needed to replay this lower certificate.
+
+Completeness of the enumeration uses the same deletion averaging and radial-sign extension proof as ../finite-thirteen/result.txt. In detail, for an m-point set with A Q+B P<=T some deletion has A(m-5) Q'+B(m-4)P' <= floor(T(m-5)(m-4)/m). All realizable extensions of a surviving signature by one new point appear among the ray sectors around the previous points. Rows must agree antisymmetrically. A putative 4-point affine circuit cannot have four equal coefficient signs. A larger subset is convex exactly when every four-subset is convex. Canonicalization merges only relabelings and reflections. Keeping some nonrealizable sign patterns is harmless because we exclude explicitly every remaining one with count below 780.
+
+certificate.cpp uses the 13-point reference code with its array bound raised from 14 to 15. packed-parallel.cpp implements the same count while assigning sign rows, via bitmasks. Its exact 13-point output at threshold 284 matched the complete known regression file byte-for-byte. All C++ enumeration runs are outside Lean. Compile and run commands below assume the current directory is this SSD project subdirectory.
+
+  export TMPDIR="$PWD"
+  clang++ -std=c++17 -O3 -pthread packed-parallel.cpp -o packed-parallel
+  ./packed-parallel 14 417 > replay.log
+  python3 -B verify-result.py replay.log
+
+For the slower reference algorithm use:
+  clang++ -std=c++17 -O3 certificate.cpp -o verify
+  ./verify 14 417 > reference.log
+  cmp reference.log replay.log
+
+The exact value does not establish the limiting statement in Erdős problem #838. Previous exact results and conventions are recorded at ../finite-thirteen/result.txt. A literature search found no earlier exact 14-point total; it does not establish publication priority.
+
+Classification. There is exactly one minimizing order type up to relabeling and reflection. Among the 13 signatures with exactly 780 polygons, twelve have exact product-inequality contradictions. The thirteenth is realized by witness780-small.txt with all 364 ordered triple signs checked. The file exclusions-through780.jsonl contains the complete set of 16 contradictions for totals at most 780. To verify the classification after running the enumeration:
+  python3 -B verify-classification.py replay.log
+
+The independent tighter run at Q+P<=415 returned the same four low signatures. Each lower-bound contradiction also has a certificate using just nine comparisons on nine labels, in compact-below780.jsonl.
+  ./packed-parallel 14 415 > lower-only.log
+  python3 -B verify-result.py lower-only.log --certificates compact-below780.jsonl
+
+Short classification certificates. In compact-through780.jsonl, fourteen candidates are ruled out by nine comparisons on nine labels, one by 16 comparisons on ten labels, and one by 12 comparisons on ten labels. Recheck with:
+  python3 -B verify-classification.py replay.log --certificates compact-through780.jsonl
+
+The one-point deletion totals of the unique fourteen-point minimizer are
+574, 574, 574, 575, 575, 575, 576, 578, 578, 580, 581, 582, 586, 588.
+In particular no thirteen-point minimizer is contained in a fourteen-point minimizer. The classification checker also verifies these counts.
+
+Independent count-path replay. The six-worker reference-parallel.cpp retains certificate.cpp's leaf-by-leaf, scalar circuit and polygon counts. Its complete threshold-417 output matched packed-parallel.cpp's incremental bit-mask count path byte for byte (30,437 bytes, SHA-256 dd0680897f14f47daa1d7846b5c5c8f0a413c49ee85875fd50bdf65d430da1ca).
+  clang++ -std=c++17 -pthread -O3 reference-parallel.cpp -o reference-parallel
+  ./reference-parallel 14 417 > reference-parallel.log
+  cmp reference-parallel.log parallel417.log
+  python3 -B verify-classification.py reference-parallel.log --certificates compact-through780.jsonl
+The two implementations share the deletion lemma, ray-extension method and canonicalization, so this cross-check specifically compares their counting and threshold-pruning implementations. A redundant single-thread run was discontinued after the complete reference replay matched.

@@ -1,25 +1,25 @@
 \documentclass[11pt]{article}
 \usepackage[margin=0.95in]{geometry}
 \usepackage{amsmath,amssymb,booktabs,tikz,hyperref}
-\hypersetup{hidelinks,pdfauthor={Rohan Arun},pdftitle={Minimum numbers of convex polygons on twelve and thirteen points}}
+\hypersetup{hidelinks,pdfauthor={Rohan Arun},pdftitle={Minimum numbers of convex polygons on twelve through fourteen points}}
 \setlength{\parindent}{1.05em}\setlength{\parskip}{2pt}
 \setlength{\abovedisplayskip}{7pt}\setlength{\belowdisplayskip}{7pt}
 \pagestyle{plain}
 \begin{document}
 \begin{center}
-{\LARGE\bfseries Minimum numbers of convex polygons\\[3pt] on twelve and thirteen points}\\[12pt]
+{\LARGE\bfseries Minimum numbers of convex polygons\\[3pt] on twelve through fourteen points}\\[12pt]
 {\large Rohan Arun}\\[2pt] Super Powers AI\\[4pt]
-{\small Research draft, November 20, 2026}
+{\small Version 1.1, November 20, 2026}
 \end{center}
 \begin{abstract}
-Among twelve points in the plane with no three collinear, the least possible number of convex polygons is 408. Among thirteen points it is 570. Exactly five thirteen-point order types attain equality up to reflection and relabeling. We obtain the lower bounds by enumerating orientation signs along a chain of point deletions and certifying the nonrealizability of the remaining exceptions by inequalities between triangle areas. Integer coordinates certify attainment. The same search independently recovers Savova's ten- and eleven-point values.
+Among twelve, thirteen and fourteen planar points with no three collinear, the minimum numbers of convex polygons are 408, 570 and 780, respectively. Up to reflection and relabeling there are five minimizing order types on thirteen points and one on fourteen. Deleting any point from the fourteen-point minimizer leaves at least 574 polygons. We obtain the lower bounds by enumerating orientation signs along a chain of point deletions and certifying the nonrealizability of the remaining exceptions by inequalities between triangle areas. Integer coordinates certify attainment. The same search independently recovers Savova's ten- and eleven-point values.
 \end{abstract}
 \section{The finite problem}
 For a finite planar point set $S$ with no three collinear, let $C(S)$ count the subsets of at least three points in convex position. All vertices of a counted subset must lie on its hull. Other points of $S$ may lie inside that hull. Write $f(n)=\min_{|S|=n}C(S)$. Erd\H{o}s and Hammer asked how small this number could be. Erd\H{o}s also asked whether $\log f(n)/(\log n)^2$ has a limit~\cite{erdos}. The latter question remains open.
 
-\noindent\textbf{Theorem.} $f(12)=408$ and $f(13)=570$. At thirteen points, exactly five order types attain the minimum, up to permutations and simultaneous reversal of orientations. Their profiles appear in Table~1.
+\noindent\textbf{Theorem.} $f(12)=408$, $f(13)=570$ and $f(14)=780$. Up to relabeling and simultaneous reversal of orientations, exactly five order types attain the minimum at thirteen points, and exactly one at fourteen. Their polygon counts by size appear in Table~1.
 
-Savova~\cite{savova} counted all nonempty subsets in convex position. She obtained the ten-point minimum by scanning the Graz order-type database~\cite{graz} and the eleven-point minimum by a separate extension argument. Her convention includes $n+\binom n2$ additional subsets. Consequently her values 244 and 349 give $f(10)=189$ and $f(11)=283$. Conversely, the new values in her convention are 486 and 661. An earlier public computation by the Erd\H{o}s Problem a Day project tabulated the polygon convention through nine points~\cite{prior}.
+Savova~\cite{savova} counted all nonempty subsets in convex position. She obtained the ten-point minimum by scanning the Graz order-type database~\cite{graz} and the eleven-point minimum by a separate extension argument. Her convention includes $n+\binom n2$ additional subsets. Consequently her values 244 and 349 give $f(10)=189$ and $f(11)=283$. Conversely, the values here in her convention are 486, 661 and 885. An earlier public computation by the Erd\H{o}s Problem a Day project tabulated the polygon convention through nine points~\cite{prior}.
 
 \begin{center}
 \begin{tabular}{r r r r r r l}\toprule
@@ -28,7 +28,8 @@ $n$ & Triangles & Quadrilaterals & Pentagons & Hexagons & Total & Scope\\\midrul
 11 & 165 & 108 & 10 & 0 & 283 & known value\\
 12 & 220 & 165 & 22 & 1 & 408 & one witness\\
 13 & 286 & 241 & 41 & 2 & 570 & one type\\
-13 & 286 & 247 & 35 & 2 & 570 & four types\\\bottomrule
+13 & 286 & 247 & 35 & 2 & 570 & four types\\
+14 & 364 & 350 & 64 & 2 & 780 & unique type\\\bottomrule
 \end{tabular}\par\smallskip
 {\small Table 1. Counts in explicit minimizers. All displayed sets have no convex subset of size seven.}
 \end{center}
@@ -72,7 +73,7 @@ For each of the six 407-candidates and for the unique 569-candidate we give a bi
 \]
 Expansion gives $U_0-U_1+U_2=0$. When one of the three signed terms has the opposite sign to the other two, its magnitude exceeds each of theirs. A certificate lists such strict inequalities, with positive multiplicities, for which each area factor occurs equally often on both sides. Multiplying them would make a positive number exceed itself. Hence the specified signature has no real realization. At twelve points each certificate needs ten or eleven distinct comparisons. At thirteen points, nine suffice to exclude the 569-candidate. Five of the ten 570-candidates have certificates of the same form.
 
-The other five have integer-coordinate realizations. For each, we checked every triple sign and computed the hull of every subset, retaining subsets whose hull contains all selected points as vertices. The five canonical signatures differ. This proves the two lower bounds, attainment and the thirteen-point classification. \hfill$\square$
+The other five have integer-coordinate realizations. For each, we checked every triple sign and computed the hull of every subset, retaining subsets whose hull contains all selected points as vertices. The five canonical signatures differ. This proves the twelve- and thirteen-point minima and the thirteen-point classification. \hfill$\square$
 
 \begin{center}
 \begin{minipage}{0.29\linewidth}\centering
@@ -86,7 +87,40 @@ The other five have integer-coordinate realizations. For each, we checked every 
 \textbf{Figure 1.} One of the five minimizing configurations. Its thirteen points determine 286 triangles, 241 quadrilaterals, 41 pentagons and two hexagons. The outline is the convex hull of the entire configuration.
 \end{minipage}
 \end{center}
-\paragraph{Reproducibility.} Extract the companion archive and run \texttt{python3 replay.py} with a C++17 compiler installed. The program regenerates the candidate lists, checks the signs and cancellation in the exclusion certificates, and verifies the witnesses. The search for the certificates is unnecessary for replay. The separate Lean archive checks specific witnesses and determinant exclusions. Exhaustiveness uses the argument on page~2 and the enumeration program.
+\paragraph{Reproducibility.} The calculations for ten through thirteen points require Python and a C++17 compiler. From the reproduction directory, run \texttt{python3 replay.py}. The program regenerates the candidate lists, checks every strict comparison and factor cancellation, and verifies the witnesses. The Lean archive checks selected witnesses and determinant exclusions. The lower bounds use the geometric argument in Section~2 and the exhaustive enumeration.
+
+\newpage
+\section{The unique fourteen-point minimizer}
+There are $\binom{14}{3}=364$ triangles. Every configuration with at most 780 polygons therefore satisfies $Q+P\le416$. We ran the deletion and extension search of Section~2 with the slightly larger bound $Q+P\le417$. It retained 22,038 distinct signatures. Counting all convex subsets in each signature left the following candidates at or below the proposed minimum.
+\begin{center}
+\begin{tabular}{r r r r}\toprule
+Polygon count & Candidate signatures & Excluded & Realized\\\midrule
+At most 777 & 0 & 0 & 0\\
+778 & 1 & 1 & 0\\
+779 & 3 & 3 & 0\\
+780 & 13 & 12 & 1\\\bottomrule
+\end{tabular}
+\end{center}
+The exclusion certificates multiply strict area-product inequalities as in Section~3. Fourteen of the sixteen certificates use nine comparisons on nine labels each. The other two use twelve and sixteen comparisons, respectively, on ten labels each. A separate run at $Q+P\le415$, sufficient for every set with fewer than 780 polygons, yields the same four signatures below 780.
+
+\paragraph{Attainment.} The configuration below has the triple signs of the one remaining signature. Coordinates are listed by columns, with each $x$-row paired with the $y$-row beneath it.
+\begin{center}
+\begin{tabular}{r|rrrrrrr}
+$x$ & $-2000$ & $-2000$ & $-1292$ & $-1262$ & $-1040$ & $-1427$ & $-1443$\\
+$y$ & $-2000$ & $2000$ & $1267$ & $1135$ & $1007$ & $-294$ & $-343$\\[3pt]
+$x$ & $-1069$ & $-1040$ & $-970$ & $-449$ & $495$ & $641$ & $2000$\\
+$y$ & $118$ & $128$ & $-83$ & $885$ & $597$ & $658$ & $1220$
+\end{tabular}
+\end{center}
+All 364 triple determinants are nonzero. Exact convex-hull tests across the $2^{14}$ subsets give 364 triangles, 350 quadrilaterals, 64 pentagons and two hexagons. This proves attainment. The sixteen exclusions and exhaustiveness give the lower bound and uniqueness. \hfill$\square$
+
+\paragraph{Deleting a vertex.} The fourteen deletion counts in ascending order are
+\[
+574,574,574,575,575,575,576,578,578,580,581,582,586,588.
+\]
+The least is 574. Consequently none of the five minimizing thirteen-point order types extends to a minimizing fourteen-point order type.
+
+\paragraph{Verification.} The fourteen-point reproduction archive includes the integer witness, the full list of candidates at or below 780, the exclusion certificates, and the enumeration code. The scalar and bit-mask implementations share the deletion argument, sign-row extension and canonicalization. They count and prune candidates by different methods and produced byte-identical output at $Q+P\le417$. Lean~4 checks the fourteen-point witness count and each of the sixteen determinant contradictions over the reals. Completeness of the search uses Section~2 and the external C++ enumeration. Run instructions for both checks are in the archive's \texttt{README.txt}.
 
 \newpage
 \section*{A nine-comparison certificate}
